@@ -29,17 +29,17 @@ RUN apk add --no-cache \
     postgresql-libs \
     rsync \
     zlib-dev \
-    libzip-dev
+    libzip-dev \
+    libxslt-dev \
+    icu-dev 
 
 # Install PECL and PEAR extensions
-RUN pecl install \
-    imagick \
-    xdebug
+RUN pecl install imagick
+    
 
 # Install and enable php extensions
-RUN docker-php-ext-enable \
-    imagick \
-    xdebug
+RUN docker-php-ext-enable imagick
+
 RUN docker-php-ext-configure zip --with-libzip
 RUN docker-php-ext-install \
     calendar \
