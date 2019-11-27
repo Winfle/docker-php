@@ -32,7 +32,7 @@ RUN apk add --no-cache \
     libzip-dev \
     libxslt-dev \
     icu-dev \
-    libmcrypt-dev
+    libmcrypt-dev 
 
 # Install PECL and PEAR extensions
 RUN pecl install imagick
