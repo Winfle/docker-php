@@ -71,11 +71,11 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
 
 # Installing Deployer
-curl -LO https://deployer.org/deployer.phar
-mv deployer.phar /usr/local/bin/dep
-chmod +x /usr/local/bin/dep
-composer global require deployer/recipes
-composer global require jalogut/magento2-deployer-plus
+RUN curl -LO https://deployer.org/deployer.phar
+RUN mv deployer.phar /usr/local/bin/dep
+RUN chmod +x /usr/local/bin/dep
+RUN composer global require deployer/recipes
+RUN composer global require jalogut/magento2-deployer-plus
 
 # Cleanup dev dependencies
 RUN apk del -f .build-deps
