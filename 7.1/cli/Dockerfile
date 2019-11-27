@@ -31,7 +31,8 @@ RUN apk add --no-cache \
     zlib-dev \
     libzip-dev \
     libxslt-dev \
-    icu-dev 
+    icu-dev \
+    libmcrypt-dev
 
 # Install PECL and PEAR extensions
 RUN pecl install imagick
@@ -59,13 +60,22 @@ RUN docker-php-ext-install \
     bcmath \
     xsl \
     intl \
-    soap
-  
+    soap \
+    mcrypt
+
+RUN echo "memory_limit=-1" >> /usr/local/etc/php/conf.d/custom.ini  
 # Install composer
 ENV COMPOSER_HOME /composer
 ENV PATH ./vendor/bin:/composer/vendor/bin:$PATH
 ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
+
+# Installing Deployer
+curl -LO https://deployer.org/deployer.phar
+mv deployer.phar /usr/local/bin/dep
+chmod +x /usr/local/bin/dep
+composer global require deployer/recipes
+composer global require jalogut/magento2-deployer-plus
 
 # Cleanup dev dependencies
 RUN apk del -f .build-deps
